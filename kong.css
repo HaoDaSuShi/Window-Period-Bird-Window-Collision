@@ -1,0 +1,1493 @@
+:root {
+    --primary-bg: #000;
+    --text-color: #e4e1e5;
+    --navbar-gradient: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 70%, rgba(0, 0, 0, 0) 100%);
+    --blur-overlay: blur(15px);
+    --transition-base: 0.3s ease;
+}
+
+/* RESET */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+}
+
+
+/* FONTS */
+@font-face {
+    font-family: "caslonPro";
+    font-display: swap;
+    font-style: italic;
+    font-weight: normal;
+    src: url("./fonts/Adobe Caslon Pro Semibold Italic.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "ChironSungHK";
+    font-display: swap;
+    font-style: italic;
+    font-weight: normal;
+    src: url("./fonts/ChironSungHK-MediumItalic.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "HelveticaNeue";
+    font-display: swap;
+    font-style: italic;
+    font-weight: 300;
+    src: url("./fonts/HelveticaNeue-LightItalic-09.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "NotoSansCJKTC";
+    font-display: swap;
+    font-style: normal;
+    font-weight: 300;
+    src: url("./fonts/NotoSansCJKtc-Light.otf") format("opentype");
+}
+
+/* 開場動畫 */
+
+.video-preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    z-index: 99999;
+    /* 確保在所有元素最前方 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: opacity 0.8s ease-out;
+    /* 消失時的淡出動畫 */
+}
+
+/* 影片填滿方式 */
+.video-preloader video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 確保影片像背景一樣填滿螢幕 */
+}
+
+/* 當預載完成後，給 main-wrapper 的顯示動畫 */
+#main-wrapper {
+    transition: opacity 1.5s ease-out;
+}
+
+
+/* 導航條樣式 */
+/* 導覽列核心設定 */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5vw 35px 3vw;
+    /* 底部留白是為了漸層遮罩 */
+    z-index: 10000;
+    transition: all 0.3s ease;
+
+    /* 毛玻璃與頂部漸層 */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+
+    /* 優雅的消失遮罩 */
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+}
+
+/* 當選單開啟時，取消遮罩以免內容被切掉 */
+.navbar.menu-active {
+    mask-image: none;
+    -webkit-mask-image: none;
+    background: rgba(0, 0, 0, 0.95);
+}
+
+.logo img {
+    height: clamp(80px, 10vw, 120px);
+    /* 根據螢幕大小自動縮放 Logo */
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+/* --- 漢堡按鈕動畫 --- */
+.hamburger {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 30px;
+    z-index: 2001;
+}
+
+.hamburger span {
+    background-color: #e4e1e5;
+    height: 2px;
+    width: 100%;
+    transition: 0.4s;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* --- 手機版選單疊加層 --- */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.4s;
+    z-index: 2000;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-nav-links {
+    list-style: none;
+    text-align: center;
+}
+
+.mobile-nav-links a {
+    color: #e4e1e5;
+    font-size: 24px;
+    text-decoration: none;
+    display: block;
+    margin: 20px 0;
+    font-family: "ChironSungHK", serif;
+    gap: 50px;
+}
+
+.desktop-menu {
+    display: none;
+    /* 預設隱藏桌機版選單 */
+
+}
+
+/* --- 桌機版選單展示 --- */
+@media (min-width: 1024px) {
+    .hamburger {
+        display: none;
+    }
+
+    .desktop-menu {
+        display: flex;
+        gap: 40px;
+        list-style: none;
+    }
+
+    .desktop-menu a {
+        color: #e4e1e5;
+        text-decoration: none;
+        font-size: 16px;
+        opacity: 0.8;
+        transition: 0.3s;
+        font-family: "ChironSungHK", serif;
+    }
+
+    .desktop-menu a:hover {
+        color: #e6002b;
+
+    }
+}
+
+
+
+/* 主視覺區域的css樣式  */
+
+
+/* Hero 主容器 */
+/* --- 1. 基礎共通設定 --- */
+.hero-section {
+    background-color: #ffffff;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-animation-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+.hero-animation-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* --- 2. 手機版樣式 (預設預載) --- */
+
+/* 背景：顯示手機版，隱藏桌機版 */
+.hero-bg-mobile { display: block; }
+.hero-bg-desktop { display: none; }
+
+/* 左上角大英文 (手機原樣) */
+.hero-top-left {
+    position: absolute;
+    z-index: 2;
+    left: clamp(20px, 5vw, 35px);
+    top: 120px;
+    font-family: "HelveticaNeue", sans-serif;
+    font-size: clamp(38px, 6vw, 64px);
+    letter-spacing: 3px;
+    line-height: 1.5;
+    text-transform: capitalize;
+    color: #e6002b;
+}
+
+/* 右側垂直中文 (手機原樣) */
+.hero-right-vertical {
+    position: absolute;
+    z-index: 2;
+    right: clamp(15px, 4vw, 30px);
+    top: 55%;
+    transform: translateY(-50%);
+    writing-mode: vertical-rl;
+    font-family: "ChironSungHK", serif;
+    font-size: 12px;
+    letter-spacing: 5em; /* 維持 5em 設計 */
+    color: #000000;
+    white-space: nowrap;
+}
+
+/* 底部引導箭頭 */
+.hero-footer-mobile {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+.scroll-arrow {
+    font-size: 24px;
+    animation: bounce 2s infinite;
+    color: #000000;
+}
+
+/* --- 3. 電腦與平板版 (寬度 768px 以上時覆寫) --- */
+@media (min-width: 768px) {
+    /* 背景切換 */
+    .hero-bg-mobile { display: none; }
+    .hero-bg-desktop { display: block; }
+
+    /* 英文：從左上搬移到右下 */
+    .hero-top-left {
+        left: auto;        /* 關鍵：釋放手機版的 left */
+        top: auto;         /* 關鍵：釋放手機版的 top */
+        right: 50px;
+        bottom: 50px;
+        text-align: right;
+        font-size: clamp(48px, 5vw, 64px);
+        line-height: 1.2;
+    }
+
+    /* 中文：從右側中間搬移到畫面正中央下方 */
+    .hero-right-vertical {
+        right: auto;       /* 關鍵：釋放手機版的 right */
+        top: auto;         /* 關鍵：釋放手機版的 top */
+        left: 50%;         /* 置中定位 */
+        bottom: 50px;
+        transform: translateX(-50%); /* 配合 left: 50% 達成水平置中 */
+        font-size: 16px;
+        writing-mode: horizontal-tb; /* 改回水平書寫 */
+        /* writing-mode 與 letter-spacing 繼承手機版設定，不動它 */
+    }
+
+    /* 隱藏手機引導箭頭 */
+    .hero-footer-mobile {
+        display: none;
+    }
+}
+
+/* 箭頭跳動動畫 */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+/* 文字區域的css樣式 */
+.bird-info-section {
+    padding: 80px 25px;
+    /* 手機版間距較小 */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 1000px;
+}
+
+.info-icon {
+    margin-bottom: 30px;
+}
+
+.icon-img {
+    width: 42px;
+    height: auto;
+}
+
+.info-title-zh {
+    color: var(--text-color);
+    font-family: "ChironSungHK", serif;
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.info-text-en {
+    color: var(--text-color);
+    font-family: "HelveticaNeue", sans-serif;
+    font-size: 10px;
+    font-style: italic;
+    letter-spacing: 0;
+    line-height: 1.5;
+    margin-bottom: 50px;
+}
+
+/* 預設手機版隱藏英文換行，避免太碎 */
+.desktop-br {
+    display: block;
+    /* 手機版換行 */
+}
+
+/* --- 平板與電腦版樣式 (Media Query) --- */
+@media (min-width: 768px) {
+    .bird-info-section {
+        padding: 120px 40px;
+        min-height: 60vh;
+    }
+
+    .icon-img {
+        width: 50px;
+        /* 大螢幕圖示稍微加大 */
+    }
+
+    .info-title-zh {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
+    .info-text-en {
+        font-size: 12px;
+        line-height: 1.8;
+        letter-spacing: 0.05em;
+        padding: 0;
+    }
+
+    .desktop-br {
+        display: block;
+        /* 電腦版恢復換行，維持排版美感 */
+    }
+}
+
+@media (min-width: 1024px) {
+    .info-title-zh {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .info-text-en {
+        font-size: 14px;
+        line-height: 1.8;
+        letter-spacing: 0.05em;
+        padding: 0;
+    }
+
+
+}
+
+
+
+/* 基礎設定：手機優先 */
+.pin-animation-section {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.pin-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around; /* 手機版均勻分布，不偏上 */
+    padding: 10vh 5% 5vh 5%;
+}
+
+.main-title {
+    color: var(--text-color, #e4e1e5);
+    font-family: "ChironSungHK", serif;
+    font-size: 20px;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    line-height: 1.5;
+    z-index: 10;
+}
+
+.middle-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    position: relative; /* 作為電腦版絕對定位的基準 */
+}
+
+.side-images-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px;
+}
+
+.img-box {
+    width: 49%;
+}
+
+.img-box img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* 初始位移 */
+.img-left { transform: translateX(-150%); }
+.img-right { transform: translateX(150%); }
+
+/* 文字基礎樣式 */
+.text-cluster {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sub-title {
+    color: var(--text-color, #e4e1e5);
+    font-family: "ChironSungHK", serif;
+    font-size: clamp(1.1rem, 4vw, 1.5rem);
+    text-align: center;
+    opacity: 0;
+}
+
+.content-body {
+    font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+    font-family: NotoSansCJKTC,serif;
+    color: var(--text-color, #e4e1e5);
+    text-align: center;
+    line-height: 1.8;
+    max-width: 600px;
+    opacity: 0;
+    margin-top: 15px;
+}
+
+/* --- 平板與桌機版微調 --- */
+@media (min-width: 768px) {
+    .pin-container {
+        padding-top: 5vh;
+        justify-content: center; /* 電腦版讓三大塊往中間靠攏 */
+    }
+
+    .main-title {
+        margin-bottom: 5vh; /* 調整主標與圖片間距 */
+    }
+
+    /* 將圖片與文字垂直置中對齊的核心邏輯 */
+    .middle-content {
+        height: 50vh; /* 給予固定高度，方便內部元素置中 */
+        justify-content: center;
+    }
+
+    .side-images-wrap {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        max-width: 1100px;
+    }
+
+    .img-box {
+        width: 40%; /* 縮小圖片寬度，留出中間位置給文字 */
+    }
+
+    .text-cluster {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* 完美的垂直水平置中 */
+        width: 35%; /* 限制文字寬度在兩圖之間 */
+        z-index: 5;
+    }
+
+    .sub-title {
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+    .content-body {
+        margin-top: 0;
+    }
+}
+
+
+.stuck-grid-section {
+    width: 100%;
+    position: relative;
+}
+
+.stuck-grid-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.stuck-grid {
+    width: 100vw;
+    height: 100vh;
+    perspective: 1000px; /* 控制 3D 的縱深感 */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.zoom-item {
+    position: absolute;
+    transform-style: preserve-3d;
+    opacity: 0;
+    will-change: transform, opacity;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.zoom-img img {
+    max-width: 85vw;
+    max-height: 80vh;
+    height: auto;
+}
+
+.decoration-img{
+    position: absolute;
+    width: 150px;
+    height: auto;
+    opacity: 0.8;
+    align-items: center;
+}
+
+
+
+
+/* ==============================
+   基礎設定 & 手機優先 (Mobile First)
+   ============================== */
+.info-carousel {
+  padding: 40px 0;
+  color: #e4e1e5;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 確保內容整體置中 */
+}
+
+/* 新增：頂部裝飾圖片區域 */
+.section-header-image {
+  width: 100%;
+  max-width: 200px; /* 手機版不要太大 */
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.section-header-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0.8; /* 稍微透明增加質感 */
+}
+
+/* 輪播主容器 */
+.carousel-container {
+  width: 100%;
+  max-width: 350px; /* 手機版容器寬度 */
+  margin: 0 auto;
+  padding: 0 15px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* 圖片顯示區域 */
+.image-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-viewport {
+  width: 100%;
+  overflow: hidden;
+  touch-action: pan-y; /* 允許垂直捲動 */
+}
+
+.carousel-stage {
+  display: flex;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.carousel-item {
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-box {
+  width: 100%;
+  /* 移除 max-width，讓它隨容器縮放 */
+}
+
+.image-box img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 導覽箭頭 - 預設隱藏 (手機) */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #e4e1e5;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 5;
+  display: none; 
+}
+
+
+.nav-btn svg { width: 32px; height: 32px; opacity: 0.5; transition: 0.3s;}
+.nav-btn:hover svg { opacity: 1; }
+.nav-btn.prev { left: -50px; }
+.nav-btn.next { right: -50px; }
+
+/* 指示點 (Dots) */
+.dots-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #e4e1e5;
+  opacity: 0.3;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+  .dot.active {
+  background-color: #E6002B; /* 紅色點 */
+  opacity: 1;
+}
+
+
+
+/* 文字內容區域 */
+.text-viewport {
+  margin-top: 10px;
+  position: relative;
+  min-height: 120px; /* 避免切換時高度跳動 */
+}
+
+.text-item {
+  display: none;
+}
+
+.text-item.active {
+  display: block;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.header-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.title-left {
+    color: var(--text-color);
+    font-family: "ChironSungHK", serif;
+  font-size: 16px;
+  margin: 0;
+  letter-spacing: 2px;
+  font-weight: 500;
+}
+
+.percent-right {
+    color: var(--text-color);
+  font-family:caslonPro ,serif;
+  font-style: italic;
+  opacity: 0.8;
+  font-size: 10px;
+}
+
+.desc-center {
+    color: var(--text-color);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  text-align: justify;
+  margin: 0;
+  font-family: NotoSansCJKTC,serif;
+}
+
+.footer-note-right {
+  text-align: right;
+  margin-top: 20px;
+  font-size: 0.75rem;
+  opacity: 0.4;
+  font-family: NotoSansCJKTC,serif;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==============================
+   響應式調整：平板 (Tablets)
+   ============================== */
+@media (min-width: 768px) {
+  .nav-btn { display: none; } 
+  
+  .carousel-container { 
+    max-width: 450px; /* 平板版稍微放大 */
+  }
+
+  .section-header-image {
+    max-width: 250px; /* 頂部圖片也放大 */
+  }
+  .title-left { font-size: 18px; }
+  .percent-right { font-size: 12px; }
+}
+
+/* ==============================
+   響應式調整：電腦版 (Desktops) - 顯著放大
+   ============================== */
+@media (min-width: 1024px) {
+  .info-carousel {
+    padding: 80px 0; /* 增加上下留白，更有呼吸感 */
+  }
+
+  /* 頂部圖片放大 */
+  .section-header-image {
+    max-width: 350px; 
+    margin-bottom: 40px;
+  }
+
+  /* 輪播容器顯著放大 */
+  .carousel-container { 
+    max-width: 650px; 
+  }
+
+  /* 文字尺寸適度調整 */
+  .title-left { font-size: 20px; }
+  .percent-right { font-size: 14px; }
+  .desc-center { font-size: 1.1rem; }
+  
+  /* 箭頭位置往外推 */
+  .nav-btn.prev { left: -70px; }
+  .nav-btn.next { right: -70px; }
+  .nav-btn svg { width: 40px; height: 40px; }
+.nav-btn {
+    display: block; /* 電腦版顯示箭頭 */
+}
+
+.nav-btn:hover{
+    color: #E6002B; /* 紅色箭頭 */
+}
+}
+
+
+/* --- 基礎容器 --- */
+.split-feature-section {
+    width: 100%;
+    padding: 8vh 5%;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+}
+
+.split-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    /* --- 手機與平板 (預設)：垂直排列 --- */
+    flex-direction: column-reverse; 
+    align-items: center;
+    gap: 40px; /* 圖片與文字的間距 */
+    
+}
+
+/* --- 手機與平板的圖片與文字置中 --- */
+.split-container .content-body {
+    width: 100%;
+    text-align: center; /* 手機平板文字置中 */
+}
+
+.image-area {
+    width: 100%;
+    max-width: 500px; /* 限制手機平板上的圖片寬度 */
+    display: flex;
+    justify-content: center;
+}
+
+.image-area img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* --- 電腦版 (1024px 以上)：橫向並排 --- */
+@media (min-width: 1024px) {
+    .split-container {
+        /* 切換為水平排列 */
+        flex-direction: row; 
+        justify-content: space-between;
+        align-items: center; /* 垂直方向對齊中心 */
+        text-align: left;    /* 容器內對齊回左側 */
+    }
+
+    /* 左側文字區塊 */
+    .split-container .content-body {
+        flex: 1; /* 佔據左半部空間 */
+        text-align: left; /* 文字改為靠左 */
+        padding-right: 10%; /* 與右側圖片留出呼吸空間 */
+    }
+
+    /* 右側圖片區塊 */
+    .image-area {
+        flex: 1; /* 佔據右半部空間 */
+        max-width: 600px;
+        margin-bottom: 0;
+    }
+}
+
+
+
+.navbar.light-mode {
+    background: linear-gradient(to bottom, rgba(228, 225, 229, 0.95) 0%, rgba(228, 225, 229, 0) 100%) !important;
+    mask-image: linear-gradient(to bottom, white 85%, transparent 100%) !important;
+    -webkit-mask-image: linear-gradient(to bottom, white 85%, transparent 100%) !important;
+}
+
+/* Logo 切換控制 */
+.logo-black { display: none; }
+.navbar.light-mode .logo-white { display: none !important; }
+.navbar.light-mode .logo-black { display: block !important; }
+
+/* 文字與漢堡線條變黑 (一般狀態) */
+.navbar.light-mode .desktop-menu a {
+    color: #000000 !important;
+}
+.navbar.light-mode .hamburger span {
+    background-color: #000000 !important;
+}
+
+/* ==========================================================================
+   2. 漢堡選單開啟狀態 (Overlay) 的邏輯修正
+   ========================================================================== */
+
+/* 當選單開啟時，取消 Navbar 的漸層遮罩避免切掉內容 */
+.navbar.menu-active {
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+    background: rgba(0, 0, 0, 0.95) !important;
+}
+
+/* 選單背景預設永遠是深色 */
+.menu-overlay {
+    background-color: rgba(0, 0, 0, 0.95) !important;
+    z-index: 2000;
+}
+
+/* --- 解決「黑底黑字」問題 --- */
+/* 即使在 light-mode 下，只要選單開啟，文字連結必須強行變回白色 */
+.navbar.light-mode .menu-overlay .mobile-nav-links a {
+    color: #e4e1e5 !important;
+}
+
+/* 當漢堡選單變成 X (active) 時，在 light-mode 下也要變回白色才看得到 */
+.navbar.light-mode .hamburger.active span {
+    background-color: #e4e1e5 !important;
+}
+
+/* ==========================================================================
+   3. 轉場動畫區塊 (Transition Section)
+   ========================================================================== */
+
+.transition-trigger-section {
+    position: relative;
+    width: 100%;
+    background-color: #000;
+    transition: background-color 0.6s ease;
+    overflow: hidden;
+    padding: 80px 25px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.sticky-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.zoom-target-icon {
+    width: 42px;
+    height: auto;
+    margin-bottom: 30px;
+    will-change: transform;
+    display: inline-block;
+}
+
+/* 文字樣式維持你原本的設定 */
+.info-title-zh {
+    color: #e4e1e5;
+    font-family: "ChironSungHK", serif;
+    font-size: clamp(16px, 4vw, 20px);
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.info-text-en {
+    color: #e4e1e5;
+    font-family: "HelveticaNeue", sans-serif;
+    font-size: clamp(10px, 2vw, 14px);
+    font-style: italic;
+    letter-spacing: 0;
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   4. 基礎動畫輔助
+   ========================================================================== */
+
+.navbar.nav-hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+
+.section-report {
+    width: 100%;
+    padding: 100px 25px;
+    background-color: #e4e1e5;
+}
+
+.report-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- 上方主標區域：左右圖片對稱 --- */
+.report-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 80px;
+}
+
+.side-deco {
+    flex: 0 0 30px; /* 裝飾圖寬度 */
+}
+
+.side-deco img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* 繼承自 .info-title-zh 的新設定集 */
+.report-main-title {
+    color: #E6002B;
+    font-family: "ChironSungHK", serif;
+    font-size: clamp(20px, 5vw, 28px);
+    font-weight: 300;
+    letter-spacing: 0.25em; /* 稍微加寬，更有報告書的莊重感 */
+    line-height: 1.2;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.report-body {
+    font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+    font-family: NotoSansCJKTC,serif;
+    color: #000000;
+    text-align: center;
+    line-height: 1.8;
+    max-width: 600px;
+    margin-top: 15px;
+}
+
+/* --- 下方四組網格 --- */
+.report-grid {
+    display: flex;
+    flex-direction: column; /* 手機與平板：上下排列 */
+    gap: 60px;
+    align-items: center;
+}
+
+.report-item {
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    /* 確保 hover 範圍包含整組內容 */
+    cursor: default;
+}
+
+/* --- 圖片切換容器 --- */
+.item-img {
+    width: 100%;
+    margin-bottom: 20px;
+    position: relative; /* 必須設定為 relative 讓 GIF 絕對定位 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 圖片基礎樣式 */
+.item-img img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    /* 設定淡入淡出時間 */
+    transition: opacity 0.4s ease-in-out;
+    will-change: opacity;
+}
+
+/* 靜態 PNG (預設顯示) */
+.item-img .static-png {
+    position: relative;
+    z-index: 2;
+    opacity: 1;
+}
+
+/* 動態 GIF (預設隱藏且重疊) */
+.item-img .hover-gif {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0;
+}
+
+/* --- 文字樣式 (修正顏色為白色/指定色) --- */
+.report-body {
+    font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+    font-family: NotoSansCJKTC, serif;
+    /* 強制使用指定色 #e4e1e5，避免被變數或黑色背景渲染影響 */
+    color: #000000 !important; 
+    text-align: center;
+    line-height: 1.8;
+    max-width: 600px;
+    margin-top: 15px;
+    /* 如果你之前設為 opacity: 0，請確保 JS 有將其轉為 1 */
+    opacity: 1; 
+}
+
+/* --- 電腦版樣式 (1024px 以上) --- */
+@media (min-width: 1024px) {
+    .report-grid {
+        flex-direction: row; /* 電腦版：左右排列 */
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .report-item {
+        flex: 1; /* 平分寬度 */
+    }
+
+    .side-deco {
+        flex: 0 0 30px; 
+    }
+}
+
+/* --- 電腦版 Hover 切換效果 --- */
+@media (hover: hover) and (min-width: 1024px) {
+    /* 滑鼠移入整組項目時切換 */
+    .report-item:hover .static-png {
+        opacity: 0;
+    }
+    
+    .report-item:hover .hover-gif {
+        opacity: 1;
+        z-index: 3; /* 確保 GIF 顯現時在最上層 */
+    }
+}
+
+/* --- 按鈕容器 --- */
+.report-actions {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 60px; /* 與上方網格的間距 */
+}
+
+/* --- 毛玻璃方塊按鈕 --- */
+.btn-glass-report {
+    display: inline-block;
+    padding: 15px 45px;
+    background-color: rgb(0, 0, 0); /* 半透明黑 */
+    color: #e4e1e5;
+    text-decoration: none;
+    font-family: "ChironSungHK", serif;
+    font-size: 16px;
+    letter-spacing: 0.1em;
+    
+    /* 圓角與毛玻璃 */
+    border-radius: 1000px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(228, 225, 229, 0.2); /* 淡淡的細邊框增加質感 */
+    
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* --- 電腦版 Hover 效果 (僅在滑鼠裝置生效) --- */
+@media (hover: hover) {
+    .btn-glass-report:hover {
+        background-color: #e6002b; /* 品牌紅色 */
+        border-color: #e6002b;
+        color: #ffffff;
+        transform: translateY(-3px); /* 輕微往上浮動 */
+        box-shadow: 0 10px 20px rgba(230, 0, 43, 0.3);
+    }
+}
+
+/* --- Active 按壓效果 (全裝置適用，增加操作手感) --- */
+.btn-glass-report:active {
+    transform: translateY(1px) scale(0.98);
+    background-color: #b30021; /* 按下時顏色深一點點 */
+    transition: all 0.1s;
+}
+
+/* --- 平板與電腦版間距微調 --- */
+@media (min-width: 1024px) {
+    .report-actions {
+        margin-top: 80px;
+    }
+    
+    .btn-glass-report {
+        font-size: 18px;
+        padding: 18px 60px;
+    }
+}
+
+
+.prevention-section {
+    width: 100%;
+    padding: 100px 25px;
+    background-color: #e4e1e5;
+}
+
+.prevention-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- 標題區域維持不變 --- */
+
+
+
+/* --- 改為 A 標籤後的設定 --- */
+.prevention-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    align-items: center;
+    height: 100%;
+}
+
+.prevention-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-decoration: none; /* 移除連結底線 */
+    width: 100%;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); /* 平滑過渡 */
+    cursor: pointer;
+}
+
+.prevention-circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #fff;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 增加微弱陰影，讓圓形更突出 */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+    transition: box-shadow 0.4s ease;
+}
+
+.prevention-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.prevention-text {
+    font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+    font-family: NotoSansCJKTC, serif;
+    color: #000000 !important;
+    line-height: 1.8;
+}
+
+/* ==========================================================================
+   Hover 與 Active 交互效果
+   ========================================================================== */
+
+@media (hover: hover) {
+    /* 當滑鼠移入整組卡片時 */
+    .prevention-card:hover {
+        transform: translateY(-10px); /* 整組向上微浮 */
+    }
+
+    .prevention-card:hover .prevention-circle {
+        box-shadow: 0 15px 35px rgba(230, 0, 43, 0.15); /* 陰影變深並帶點品牌紅 */
+    }
+
+    .prevention-card:hover .prevention-circle img {
+        transform: scale(1.1); /* 圖片內部放大 */
+    }
+}
+
+/* 點擊時的回饋 */
+.prevention-card:active {
+    transform: scale(0.96);
+    transition: transform 0.1s;
+}
+
+/* 電腦版橫向排列 */
+@media screen and (min-width: 1024px) {
+    .prevention-wrapper {
+        flex-direction: row !important;
+        justify-content: center;
+        gap: 80px;
+    }
+
+    .prevention-card {
+        flex: 0 1 300px;
+    }
+}
+
+
+/* --- Footer 容器與背景 --- */
+.main-footer {
+    background-color: #000000; /* 截圖中的深紅咖啡底色 */
+    padding: 80px 5% 40px;
+    width: 100%;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row; /* 電腦版：橫向排列 */
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap; /* 寬度不足時自動換行 */
+}
+
+/* --- 欄位基礎寬度 --- */
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    margin-bottom: 30px;
+}
+
+/* --- 標題與文字間距 --- */
+.footer-title {
+    margin-bottom: 25px;
+    display: block;
+    font-family: caslonPro,serif;
+    color: #e4e1e5;
+    font-size: 28px;
+}
+
+.footer-email {
+    text-decoration: none;
+    color: #e4e1e5;
+    display: inline-block;
+    font-family: "HelveticaNeue", sans-serif;
+    font-size: 16px;
+}
+
+/* --- Logo 圖片尺寸 --- */
+.footer-logo-img {
+    max-width: 250px;
+    height: auto;
+   display: flex;
+   justify-content: center;
+}
+
+/* --- 社群圓形圖示佈局 --- */
+/* ==========================================================================
+   social-wrapper 圖片超出修正檔
+   ========================================================================== */
+
+/* 1. 確保圓形容器本身具有彈性置中能力 (維持原設定) */
+/* --- 社群圖示包裹容器 --- */
+.social-wrapper {
+    display: flex;
+    flex-direction: row; /* 強制橫向排列 */
+    gap: 15px;           /* 圖示之間的間距 */
+    justify-content: flex-start; /* 電腦版靠左對齊標題 */
+    align-items: center;
+    width: 100%;
+}
+
+/* --- 圓形容器修正 --- */
+.social-circle {
+    /* 使用 flex: 0 0 固定大小，防止被擠壓變形 */
+    flex: 0 0 45px; 
+    width: 45px;
+    height: 45px;
+    
+    background-color: #e4e1e5;
+    border-radius: 50%;
+    
+    /* 內部置中佈局 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    padding: 10px;    /* 留白讓圖示縮在圓圈內 */
+    overflow: hidden; /* 確保內容不超出圓圈 */
+    text-decoration: none;
+    transition: transform 0.3s ease, background-color 0.3s;
+}
+
+/* --- 內部圖片/圖示修正 --- */
+.social-circle img {
+    /* 限制圖片最大尺寸為容器的 100% */
+    max-width: 100%;
+    max-height: 100%;
+    
+    /* 保持比例縮放，不拉伸 */
+    object-fit: contain;
+    display: block;
+}
+
+/* --- 手機版置中調整 --- */
+@media (max-width: 768px) {
+    .social-wrapper {
+        justify-content: center; /* 手機版隨標題一起置中 */
+        align-items: center;
+    }
+}
+
+/* --- 底部版權列 --- */
+.footer-bottom-bar {
+    width: 100%;
+    max-width: 1200px;
+    margin: 50px auto 0;
+    padding-top: 30px;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #e4e1e572;
+    font-family: "NotoSansCJKTC", sans-serif;
+}
+
+/* --- 手機版 RWD 適配 --- */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column; /* 手機版：轉為上下排列 */
+        align-items: center;
+        text-align: center;
+    }
+
+    .social-wrapper {
+        justify-content: center;
+    }
+    
+    .footer-section {
+        margin-bottom: 40px;
+    }
+}

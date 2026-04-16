@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-hant-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>空窗期｜窗殺防治網站</title>
+
+    <link rel="icon" href="./images/decoration/pattern-02.png" type="image/png">
+
+<link rel="shortcut icon" href="./images/decoration/pattern-02.png" type="image/png">
+    <link rel="stylesheet" href="./kong.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+</head>
+</head>
+
+
+<body style="background-color: black;">
+
+
+<div class="video-preloader">
+    <video id="openingVideo" autoplay muted playsinline preload="auto">
+        <source src="./images/opening/開場新.webm" type="video/webm" media="(min-width: 768px)">
+        <source src="./images/opening/開場（手機尺寸）.webm" type="video/webm" media="(max-width: 767px)">
+        <img src="./images/logo/空窗期橫式標準字-01.png" alt="Loading...">
+    </video>
+</div>
+
+<div id="main-wrapper" style="opacity: 0; visibility: hidden;">
+
+    <nav class="navbar">
+    <div class="logo">
+        <a href="./kong.html">
+            <img src="./images/logo/空窗期橫式標準字-01.png" alt="Logo Ｗhite" class="logo-white">
+            <img src="./images/logo/空窗期橫式標準字(黑)-01.png" alt="Black Logo" class="logo-black">
+
+        </a>
+    </div>
+    
+    <ul class="desktop-menu">
+        <li><a href="./aboutus.html">關於我們</a></li>
+        <li><a href="#more_info">更多知識</a></li>
+    </ul>
+
+    <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="menu-overlay" id="menu-overlay">
+        <ul class="mobile-nav-links">
+            <li><a href="./aboutus.html">關於我們</a></li>
+            <li><a href="#more_info">更多知識</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+<section class="hero-section">
+    <div class="hero-animation-bg">
+        <img src="./images/background/網站開始.gif" alt="hero animation" class="hero-bg-desktop">
+        <img src="./images/background/網站開頭 直式 2.gif" alt="hero animation mobile" class="hero-bg-mobile">
+    </div>
+
+    <div class="hero-top-left">
+        <p>Have <br>You <br>Seen <br>?</p>
+    </div>
+
+    <div class="hero-text-bottom-right">
+        <div class="hero-right-vertical">
+            <p>你有看到嗎？</p>
+        </div>
+        </div>
+
+    <div class="hero-footer-mobile">
+        <div class="scroll-arrow">↓</div>
+    </div>
+</section>
+
+
+     <section class="bird-info-section">
+            <div class="container">
+                <div class="info-icon">
+                    <img src="./images/support/輔助圖形-03.png" alt="Window Period Logo" class="icon-img">
+                </div>
+
+                <h2 class="info-title-zh">
+                    窗殺是鳥類在未注意玻璃就高速撞擊<br>
+                    導致內出血、骨折甚至死亡
+                </h2>
+
+                <p class="info-text-en">
+                    Bird-window collisions happen when birds fail to perceive glass and hit it at full speed,<br
+                        class="desktop-br">
+                    resulting in fatal injuries such as internal hemorrhaging or broken bones.
+                </p>
+            </div>
+        </section>
+
+
+
+        <section class="pin-animation-section" id="pinSection">
+    <div class="pin-container">
+        <h2 class="main-title">為何鳥類無法辨識玻璃？</h2>
+
+        <div class="middle-content">
+            <div class="side-images-wrap">
+                <div class="img-box img-left">
+                    <img src="./images/reflection/reflection-01.png" alt="Left">
+                </div>
+                <div class="img-box img-right">
+                    <img src="./images/reflection/reflection-02-02.png" alt="Right">
+                </div>
+            </div>
+            
+            <div class="text-cluster">
+                <h3 class="sub-title">反射性</h3>
+                <div class="content-body">
+                    <p>當玻璃反射出周遭景物，會誤以為是可飛行空間</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="stuck-grid-section" id="zoomSection">
+    <div class="stuck-grid-container">
+        <div class="stuck-grid">
+            <div class="zoom-item zoom-img"><img src="./images/top5/top5-06.png" alt=""></div>
+            <div class="zoom-item zoom-img"><img src="./images/top5/top5-07.png" alt=""></div>
+            <div class="zoom-item zoom-img"><img src="./images/top5/top5-08.png" alt=""></div>
+
+            <div class="zoom-item">
+                <h3 class="sub-title">通透性</h3>
+            </div>
+
+            <div class="zoom-item">
+                <div class="content-body">
+                    <p>當玻璃透出後方的空間感時 <br>鳥類往往會誤認而直接衝撞上去</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="bird-info-section">
+            <div class="container">
+                <div class="info-icon">
+                    <img src="./images/support/輔助圖形-03.png" alt="Window Period Logo" class="icon-img">
+                </div>
+
+                <h2 class="info-title-zh">
+                    你有發現這些鳥在慢慢變少嗎？
+                </h2>
+
+                <p class="info-text-en">
+                    Have you realized that the number of these birds is gradually decreasing?
+                </p>
+            </div>
+        </section>
+
+
+       <section class="info-carousel">
+  
+  <div class="section-header-image">
+    <img src="./images/decoration/decoration_工作區域 1.png" alt="Decoration" />
+  </div>
+
+  <div class="carousel-container">
+    
+    <div class="image-wrapper">
+      <button class="nav-btn prev" id="prevBtn" aria-label="Previous">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+
+      <div class="carousel-viewport" id="swipe-area">
+        <div class="carousel-stage" id="carousel-stage">
+          <article class="carousel-item active">
+            <div class="image-box">
+              <img src="./images/top5/top5-08.png" alt="五色鳥">
+            </div>
+          </article>
+          <article class="carousel-item">
+            <div class="image-box">
+              <img src="./images/top5/top5-06.png" alt="翠翼鳩">
+            </div>
+          </article>
+          <article class="carousel-item">
+            <div class="image-box">
+              <img src="./images/top5/top5-10.png" alt="麻雀">
+            </div>
+          </article>
+          <article class="carousel-item">
+            <div class="image-box">
+              <img src="./images/top5/top5-07.png" alt="珠頸斑鳩">
+            </div>
+          </article>
+          <article class="carousel-item">
+            <div class="image-box">
+              <img src="./images/top5/top5-09.png" alt="鳳頭蒼鷹">
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <button class="nav-btn next" id="nextBtn" aria-label="Next">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+
+    <div class="dots-container" id="dots-wrap">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+    <div class="text-viewport">
+      <div id="text-stage">
+        <div class="text-item active">
+          <div class="header-main">
+            <h2 class="title-left">五色鳥</h2>
+            <span class="percent-right">17.67%</span>
+          </div>
+          <p class="desc-center">全身翠綠，頭部有紅、黃、藍、黑等色彩，像穿了彩衣。</p>
+        </div>
+        
+        <div class="text-item">
+          <div class="header-main">
+            <h2 class="title-left">翠翼鳩</h2>
+            <span class="percent-right">9.59%</span>
+          </div>
+          <p class="desc-center">翅膀呈亮麗的翠綠色（帶有金屬光澤），身體則呈紅褐色。</p>
+        </div>
+
+        <div class="text-item">
+          <div class="header-main">
+            <h2 class="title-left">麻雀</h2>
+            <span class="percent-right">5.34%</span>
+          </div>
+          <p class="desc-center">體型嬌小，頭頂褐色，臉頰有一塊明顯的黑色圓斑。</p>
+        </div>
+
+        <div class="text-item">
+          <div class="header-main">
+            <h2 class="title-left">珠頸斑鳩</h2>
+            <span class="percent-right">5.29%</span>
+          </div>
+          <p class="desc-center">後頸有一塊布滿白色斑點的黑色區塊，看起來像戴了珍珠項鍊。</p>
+        </div>
+
+        <div class="text-item">
+          <div class="header-main">
+            <h2 class="title-left">鳳頭蒼鷹</h2>
+            <span class="percent-right">5.1%</span>
+          </div>
+          <p class="desc-center">體型中等，頭後有短羽冠（鳳頭），胸部有褐色縱紋。</p>
+        </div>
+        
+        <div class="footer-note-right"><small>截至2024>>></small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bird-info-section">
+            <div class="container">
+                <div class="info-icon">
+                    <img src="./images/support/輔助圖形-03.png" alt="Window Period Logo" class="icon-img">
+                </div>
+
+                <h2 class="info-title-zh">
+                    台灣易撞鳥與他國鳥種個體上存在差異
+                </h2>
+
+                <p class="info-text-en">
+                    Individual differences exist between bird species prone to collisions in Taiwan and those in other regions.
+                </p>
+            </div>
+        </section>
+
+
+<section class="split-feature-section">
+    <div class="split-container">
+        <div class="content-body" style="text-align: center;">
+            <p>5x10原則 <br>在玻璃上標記寬五公分、長十公分 <br>間隔可以減少90%以上的窗殺發生率 <br>(點不可小於0.5公分)</p>
+        </div>
+
+        <div class="image-area">
+            <img src="./images/dot/點陣.gif" alt="Bird Collision Prevention">
+        </div>
+    </div>
+</section>
+
+
+<section class="transition-trigger-section" id="triggerSection">
+    <div class="sticky-wrapper">
+        <div class="container content-to-hide">
+            <div class="zoom-icon-wrapper">
+                <img src="./images/support/輔助圖形-03.png" alt="Icon" class="zoom-target-icon">
+            </div>
+
+            <h2 class="info-title-zh">
+                為幫助台灣窗殺研究我們誠心邀請您加入回報的一員
+            </h2>
+
+            <p class="info-text-en">
+                Bird-window collisions happen when birds fail to perceive glass and hit it atBird-window collisions happen when birds fail to perceive glass and hit it at full speed, resulting in fatal injuries such as internal hemorrhaging or broken bones. 
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="section-report">
+    <div class="report-container">
+        <div class="report-header">
+            <div class="side-deco">
+                <img src="./images/decoration/title deco_工作區域 1.png" alt="deco">
+            </div>
+            <h2 class="report-main-title">回報流程</h2>
+            <div class="side-deco">
+                <img src="./images/decoration/title deco_工作區域 1.png" alt="deco">
+            </div>
+        </div>
+
+        <div class="report-grid">
+            <div class="report-item">
+                <div class="item-img">
+                    <img src="./images/step/png/discover.png" alt="data 01" class="static-png">
+                    <img src="./images/step/發現 紅版.gif" alt="data 01 animetion" class="hover-gif">
+                </div>
+                <div class="report-body">
+                    <p>發現傷鳥或鳥拓</p>
+                </div>
+            </div>
+
+            <div class="report-item">
+                <div class="item-img">
+                    <img src="./images/step/png/take.png" alt="data 02" class="static-png">
+                    <img src="./images/step/拿出卡 紅版.gif" alt="data 02 animetion" class="hover-gif">
+                </div>
+                <div class="report-body">
+                    <p>拿出對照物</p>
+                </div>
+            </div>
+
+            <div class="report-item">
+                <div class="item-img">
+                    <img src="./images/step/png/palce.png" alt="data 03" class="static-png">
+                    <img src="./images/step/放置傷鳥旁 紅版.gif" alt="data 03 animetion" class="hover-gif">
+                </div>
+                <div class="report-body">
+                    <p>放置傷鳥旁</p>
+                </div>
+            </div>
+
+            <div class="report-item">
+                <div class="item-img">
+                    <img src="./images/step/png/photo.png" alt="data 04" class="static-png">
+                    <img src="./images/step/照相 紅版.gif" alt="data 04 animetion" class="hover-gif">
+                </div>
+                <div class="report-body">
+                    <p>拍照回報至社團</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="report-actions">
+            <a href="https://www.facebook.com/groups/birdwindowcollision/" class="btn-glass-report" id="more_info"> 野鳥撞窗回報社團</a>
+        </div>
+    </div>
+</section>
+        
+
+<section class="prevention-section">
+    <div class="prevention-container">
+        <div class="report-header">
+            <div class="side-deco">
+                <img src="./images/decoration/title deco_工作區域 1.png" alt="deco">
+            </div>
+            <h2 class="report-main-title">更多窗殺資訊</h2>
+            <div class="side-deco">
+                <img src="./images/decoration/title deco_工作區域 1.png" alt="deco">
+            </div>
+        </div>
+
+        <div class="prevention-wrapper">
+            <a href="your-link-01.html" class="prevention-card">
+                <div class="prevention-circle">
+                    <img src="./images/prevention/prevention-01.png" alt="prevention 01">
+                </div>
+                <div class="prevention-text">
+                    <p>窗殺的影響</p>
+                </div>
+            </a>
+
+            <a href="your-link-02.html" class="prevention-card">
+                <div class="prevention-circle">
+                    <img src="./images/prevention/prevention-02.png" alt="prevention 02">
+                </div>
+                <div class="prevention-text">
+                    <p>窗殺黑數問題</p>
+                </div>
+            </a>
+
+            <a href="your-link-03.html" class="prevention-card">
+                <div class="prevention-circle">
+                    <img src="./images/prevention/prevention-03.png" alt="prevention 03">
+                </div>
+                <div class="prevention-text">
+                    <p>國內外差異</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="./script.js"></script>
+</body>
+
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-section footer-logo-area">
+            <img src="./images/logo/空窗期橫式標準字-01.png" alt="Logo" class="footer-logo-img">
+        </div>
+
+        <div class="footer-section footer-contacts-area">
+            <h3 class="footer-title">Contacts</h3>
+            <a href="mailto:changdazuo@gmail.com" class="footer-email">changdazuo@gmail.com</a>
+        </div>
+
+        <div class="footer-section footer-follow-area">
+            <h3 class="footer-title">Follow</h3>
+            <div class="social-wrapper">
+                <a href="https://www.instagram.com/window.plan_____/" class="social-circle">
+                    <img src="./images/social media/ins.png" alt="instagram">
+                    </a>
+                <a href="https://www.threads.com/@window.plan_____?xmt=AQF0vR3whKiktZwdle4Mkwd3HBALykuOepJt8nLmhbS2G3E" class="social-circle">
+                    <img src="./images/social media/threads.png" alt="threads">
+                    </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+        <p>Information on this site is for bird conservation. Please share and spread awareness.</p>
+    </div>
+</footer>
+
+</html>

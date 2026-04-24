@@ -117,6 +117,7 @@
     /* 根據螢幕大小自動縮放 Logo */
     width: auto;
     transition: transform 0.3s ease;
+    opacity: 0;
 }
 
 /* --- 漢堡按鈕動畫 --- */
@@ -193,6 +194,9 @@
 
 /* --- 桌機版選單展示 --- */
 @media (min-width: 1024px) {
+    .logo img {
+        opacity: 1;
+    }
     .hamburger {
         display: none;
     }

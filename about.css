@@ -87,6 +87,7 @@
     /* 根據螢幕大小自動縮放 Logo */
     width: auto;
     transition: transform 0.3s ease;
+    opacity: 0;
 }
 
 /* --- 漢堡按鈕動畫 --- */
@@ -163,6 +164,11 @@
 
 /* --- 桌機版選單展示 --- */
 @media (min-width: 1024px) {
+
+    .logo img {
+    opacity: 1;
+}
+    
     .hamburger {
         display: none;
     }
@@ -515,14 +521,6 @@ section {
         padding: 100px 15%; /* 增加左右留白，縮小整體比例 */
     }
 
-    .dual-images {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr); /* 2x2 矩陣 */
-        gap: 30px;
-        overflow-x: visible;
-        max-width: 1000px;
-        margin: 0 auto;
-    }
 
     .dual-images img {
         flex: none;

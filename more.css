@@ -1,0 +1,827 @@
+:root {
+  --primary-bg: #e4e1e5;
+  --text-color: #000;
+  --navbar-gradient: linear-gradient(to bottom, #e4e1e5 0%, #e4e1e5 70%, #e4e1e5 100%);
+  --blur-overlay: blur(15px);
+  --transition-base: 0.3s ease;
+}
+
+/* RESET */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+}
+
+
+/* FONTS */
+@font-face {
+  font-family: "caslonPro";
+  font-display: swap;
+  font-style: italic;
+  font-weight: normal;
+  src: url("./fonts/Adobe Caslon Pro Semibold Italic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "ChironSungHK";
+  font-display: swap;
+  font-style: italic;
+  font-weight: normal;
+  src: url("./fonts/ChironSungHK-MediumItalic.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "HelveticaNeue";
+  font-display: swap;
+  font-style: italic;
+  font-weight: 300;
+  src: url("./fonts/HelveticaNeue-LightItalic-09.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "NotoSansCJKTC";
+  font-display: swap;
+  font-style: normal;
+  font-weight: 300;
+  src: url("./fonts/NotoSansCJKtc-Light.otf") format("opentype");
+}
+
+
+
+
+/* 導航條樣式 */
+/* 導覽列核心設定 */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5vw 35px 3vw;
+  /* 底部留白是為了漸層遮罩 */
+  z-index: 10000;
+  transition: all 0.3s ease;
+
+  /* 毛玻璃與頂部漸層 */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  background: linear-gradient(to bottom, #e4e1e5 0%, #e4e1e5 100%);
+
+  /* 優雅的消失遮罩 */
+  mask-image: linear-gradient(to bottom, #e4e1e5 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #e4e1e5 70%, transparent 100%);
+}
+
+/* 當選單開啟時，取消遮罩以免內容被切掉 */
+.navbar.menu-active {
+  mask-image: none;
+  -webkit-mask-image: none;
+  background: #e4e1e5ed;
+}
+
+.logo img {
+  height: clamp(80px, 10vw, 120px);
+  /* 根據螢幕大小自動縮放 Logo */
+  width: auto;
+  transition: transform 0.3s ease;
+  opacity: 0;
+}
+
+/* --- 漢堡按鈕動畫 --- */
+.hamburger {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 30px;
+  z-index: 2001;
+}
+
+.hamburger span {
+  background-color: #000;
+  height: 2px;
+  width: 100%;
+  transition: 0.4s;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* --- 手機版選單疊加層 --- */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #e4e1e5ed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.4s;
+  z-index: 2000;
+}
+
+.menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-nav-links {
+  list-style: none;
+  text-align: center;
+}
+
+.mobile-nav-links a {
+  color: #000;
+  font-size: 24px;
+  text-decoration: none;
+  display: block;
+  margin: 20px 0;
+  font-family: "ChironSungHK", serif;
+  gap: 50px;
+}
+
+.desktop-menu {
+  display: none;
+  /* 預設隱藏桌機版選單 */
+
+}
+
+/* --- 桌機版選單展示 --- */
+@media (min-width: 1024px) {
+
+  .logo img {
+  opacity: 1;
+}
+  .hamburger {
+    display: none;
+  }
+
+  .desktop-menu {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+
+  .desktop-menu a {
+    color: #000;
+    text-decoration: none;
+    font-size: 16px;
+    opacity: 0.8;
+    transition: 0.3s;
+    font-family: "ChironSungHK", serif;
+  }
+
+  .desktop-menu a:hover {
+    color: #e6002b;
+
+  }
+}
+
+
+
+
+/* ============================================================
+   SECTION: BLACK NUMBER (窗殺黑數問題) - 僅圖片彈跳修正版
+   ============================================================ */
+
+/* 動畫初始隱藏狀態 */
+.section-blacknumber .bg-decoration,
+.section-blacknumber .main-header,
+.section-blacknumber .card-item {
+  opacity: 0;
+  visibility: hidden;
+}
+
+
+
+.section-blacknumber {
+  position: relative;
+  background-color: #E5E5E5;
+  padding-top: 140px;
+  padding-bottom: 100px;
+  width: 100%;
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .section-blacknumber {
+    padding-top: 280px;
+  }
+}
+
+/* --- 1. 背景裝飾圖控制 --- */
+.section-blacknumber .bg-decoration {
+  position: absolute;
+  right: 0;
+  width: 80%;
+  max-width: 500px;
+  z-index: 0;
+  pointer-events: none;
+  top: 3%;
+  transition: all 0.3s ease;
+}
+
+.section-blacknumber .bg-decoration img {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0.2;
+}
+
+@media (min-width: 768px) {
+  .section-blacknumber .bg-decoration {
+    top: 10%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-blacknumber .bg-decoration {
+    top: 12%;
+    width: 120%;
+  }
+}
+
+/* --- 2. 內容容器 --- */
+.section-blacknumber .container {
+  position: relative;
+  z-index: 10;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+/* --- 3. 主標題區域 (Header) --- */
+.section-blacknumber .main-header {
+  margin-bottom: 80px;
+  text-align: left;
+}
+
+@media (min-width: 1024px) {
+  .section-blacknumber .main-header {
+    margin-top: -80px;
+  }
+}
+
+.section-blacknumber .title-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-blacknumber .title-icon {
+  width: 60px;
+  height: auto;
+  margin-right: -10px;
+  flex-shrink: 0;
+  transform: translateY(4px);
+}
+
+@media (min-width: 768px) {
+  .section-blacknumber .title-icon {
+    width: 80px;
+    margin-right: -16px;
+    transform: translateY(6px);
+  }
+}
+
+.section-blacknumber .title-icon img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.section-blacknumber h1 {
+  color: #000;
+  font-family: "ChironSungHK", serif;
+  font-size: clamp(1.1rem, 4vw, 1.5rem);
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.section-blacknumber .header-desc {
+  margin-top: 15px;
+  padding-left: 20px;
+  max-width: 360px;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  text-align: justify;
+  font-family: NotoSansCJKTC, serif;
+  color: #555;
+}
+
+@media (min-width: 1024px) {
+  .section-blacknumber .header-desc {
+    margin-top: 40px;
+    max-width: 450px;
+  }
+}
+
+/* --- 4. 卡牌佈局 --- */
+.section-blacknumber .card-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  margin-top: 50px;
+}
+
+@media (min-width: 768px) {
+  .section-blacknumber .card-grid {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 30px;
+  }
+}
+
+.section-blacknumber .card-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .section-blacknumber .card-item {
+    width: 31%;
+  }
+}
+
+/* --- 5. 圖片區 (彈跳效果修正點) --- */
+.section-blacknumber .card-img-box {
+  width: 280px;
+  height: 172px;
+  margin: 0 auto 30px auto;
+  overflow: hidden;
+  flex-shrink: 0;
+  /* 增加過渡效果在圖片容器上 */
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 當滑鼠移入卡牌時，只有圖片區向上彈 */
+@media (min-width: 1024px) {
+  .section-blacknumber .card-item:hover .card-img-box {
+    transform: translateY(-15px);
+  }
+}
+
+@media (min-width: 768px) {
+  .section-blacknumber .card-img-box {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 211 / 130;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.section-blacknumber .card-img-box img {
+  width: 100%;
+  height: auto;
+  min-height: 100%;
+  object-fit: cover;
+}
+
+/* --- 6. 文字區 --- */
+.section-blacknumber .card-content {
+  width: 100%;
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 768px) {
+  .section-blacknumber .card-content {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.section-blacknumber .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+
+.section-blacknumber .card-num {
+  font-family: caslonPro, serif;
+  font-size: 2.2rem;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 0.8;
+}
+
+.section-blacknumber .card-pill {
+  border: 1px solid #777;
+  border-radius: 10000px;
+  padding: 4px 18px;
+  font-size: 0.8rem;
+  color: #555;
+  white-space: nowrap;
+}
+
+.section-blacknumber .card-text {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  text-align: left;
+  margin: 0;
+  margin-bottom: 20px;
+  font-family: NotoSansCJKTC, serif;
+  color: #555;
+}
+
+
+/* global.html */
+
+/* --- 1. 基礎與佈局 --- */
+.section-global {
+  position: relative;
+  padding: 160px 0 100px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.section-global .container {
+  position: relative;
+  z-index: 10;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 25px;
+}
+
+/* --- 2. 標題與裝飾圖 --- */
+.section-global .header-group {
+  position: relative;
+  text-align: left;
+  margin-bottom: 30px;
+}
+
+.section-global .deco-bg-icon {
+  position: absolute;
+  top: -20px;
+  right: 0;
+}
+
+.section-global .deco-icon-img {
+  width: clamp(180px, 10vw, 180px);
+  height: auto;
+  opacity: 0;
+}
+
+.section-global .percent-data-img {
+  width: clamp(220px, 30vw, 260px);
+  height: auto;
+  margin: 20px 0;
+}
+
+.global-desc {
+  margin-bottom: 100px;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  text-align: justify;
+  font-family: NotoSansCJKTC, serif;
+  color: #555;
+}
+
+/* --- 3. 卡片容器 (手機版至中) --- */
+.section-global .info-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  align-items: center;
+  /* 整體置中 */
+}
+
+.section-global .info-card {
+  width: 100%;
+  max-width: 500px;
+  /* 限制寬度讓置中更明顯 */
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- 4. 圖片比例控制 (依載體縮放) --- */
+
+/* 主圖 Hero: 大圖且居中 */
+.section-global .card-hero-img-box {
+  width: 100%;
+  height: clamp(200px, 50vw, 300px);
+  /* 放大主圖 */
+  display: flex;
+  justify-content: center;
+  margin-bottom: 35px;
+}
+
+.section-global .card-main-img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Footer 小圖: 縮小比例 */
+.section-global .card-footer-img {
+  height: clamp(35px, 5vw, 40px);
+  /* 縮小小圖 */
+  width: auto;
+  display: flex;
+  align-items: center;
+}
+
+.section-global .info-sub-img {
+  height: 100%;
+  width: auto;
+  display: block;
+}
+
+/* --- 5. 小標與小圖同一層 (左標右圖) --- */
+.section-global .label-row {
+  display: flex;
+  justify-content: space-between;
+  /* 標題騎左，圖片其右 */
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+.section-global .card-label {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0;
+  text-align: left;
+}
+
+/* --- 6. 內文與其餘空間 --- */
+.section-global .info-card p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #555;
+  text-align: left;
+  /* 內文騎左 */
+  margin: 0;
+}
+
+.section-global .card-sub-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+/* --- 7. [例外處理] no-row 區塊維持原本垂直排版 --- */
+.section-global .no-row .card-label {
+  margin-bottom: 15px;
+}
+
+.section-global .no-row .card-footer-img {
+  margin-top: 20px;
+}
+
+.deco-box {
+  width: 45px;               /* 寬度 */
+  height: 45px;              /* 高度 (保持正方形) */
+  display: flex;             /* 內部使用 flex 讓圖片置中 */
+  align-items: center;       /* 垂直置中 */
+  justify-content: center;    /* 水平置中 */
+  flex-shrink: 0;            /* 防止標題太長時方塊被壓扁 */
+}
+
+/* 內部的裝飾小圖 */
+.deco-box img {
+  width: 90%;                /* 圖片佔方框的 75%，保留一點留白 */
+  height: auto;
+  display: block;
+}
+
+/* --- 8. 電腦版樣式 --- */
+@media (min-width: 1024px) {
+  .section-global .deco-icon-img {
+    opacity: 1;
+  }
+
+  .section-global .desktop-white-bg {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .section-global .info-cards-container {
+    flex-direction: row;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 80px 8%;
+    gap: 40px;
+    align-items: flex-start;
+  }
+
+  .section-global .info-card {
+    width: 31%;
+    max-width: none;
+  }
+
+  .section-global .card-hero-img-box {
+    height: 320px;
+    /* 電腦版主圖更大 */
+    justify-content: flex-start;
+  }
+}
+
+@media (min-width: 768px) {
+  .section-global .deco-icon-img {
+    opacity: 1;
+  }
+}
+
+.section-main-title {
+  color: #000;
+  font-family: "ChironSungHK", serif;
+  font-size: clamp(1.1rem, 4vw, 1.5rem);
+  text-align: left;
+  margin-bottom: 0;
+}
+
+
+/* --- 基礎設定 --- */
+/* ============================================================
+   1. 基礎重置與動畫初始狀態 (手機與電腦共用)
+   ============================================================ */
+/* ============================================================
+   1. 基礎重置與動畫初始狀態 (手機與電腦共用)
+   ============================================================ */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: sans-serif;
+  background-color: #e4e1e5;
+}
+
+/* 初始隱藏，準備給 GSAP 使用 */
+.section-main-title,
+.section-global .percent-data-img,
+.section-global .global-desc,
+.section-global .info-card,
+.strike-report .main-header-group,
+.strike-report .block-row,
+.title-with-deco {
+  opacity: 0;
+  transform: translateY(40px);
+  will-change: transform, opacity;
+}
+
+/* ============================================================
+   2. 手機版佈局 (Mobile First) - 確保不跑版
+   ============================================================ */
+.block-row {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100%;
+  padding: 0 25px 60px !important;
+  align-items: center !important;
+}
+
+.bird-media {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.bird-media img {
+  width: 80%;
+  height: auto;
+  display: block;
+  justify-content: center;
+}
+
+.main-header-group {
+  display: flex;
+  justify-content: flex-start;
+  padding: 50px 25px;
+}
+
+.taiwan-bird-box {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* 核心：讓圖片在手機版水平置中 */
+  margin-bottom: 20px;
+}
+
+.img-taiwan {
+  /* 你可以自由調整手機版的寬度，例如 70% 或 80% */
+  width: 50% !important; 
+  height: auto;
+  display: block;
+  margin: 0 auto; /* 保險起見，增加左右自動邊距 */
+}
+/* ============================================================
+   3. 電腦版佈局 (Desktop: min-width: 768px)
+   ============================================================ */
+@media (min-width: 1024px) {
+  
+  /* 標題靠右 */
+  .main-header-group {
+    justify-content: flex-end;
+    padding: 80px 100px;
+  }
+
+  /* --- 韓國與美國區塊：讓圖片更往左邊緣靠 --- */
+ .korea-layout, .usa-layout {
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 0 50px !important;
+    margin-bottom: 250px;
+    gap: 10px; /* 縮小間距讓圖片有更多空間放大 */
+  }
+
+  .korea-layout .bird-media, 
+  .usa-layout .bird-media {
+    /* 1. 增加佔用比例：從原本的 45% 或 50% 提高到 60% */
+    flex: 0 0 60% !important; 
+    display: flex;
+    justify-content: flex-start;
+    /* 2. 負位移讓放大的圖片不擠壓文字，直接往左出界 */
+    margin-left: -150px !important; 
+  }
+
+  .korea-layout .bird-media img,
+  .usa-layout .bird-media img {
+    /* 3. 強制寬度放大 */
+    width: 120% !important; /* 超過容器寬度以達成大幅放大效果 */
+    max-width: 650px;       /* 提高上限，原本是 450px */
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* --- 台灣區塊：精密 Grid 調整 --- */
+  .taiwan-layout {
+    display: grid !important;
+    /* 定義兩欄：左邊文字 500px，右邊鳥 1fr */
+    grid-template-columns: 500px 1fr !important;
+    /* 核心修正：確保 txt1 在 txt2 的上方，鳥 (bird) 則跨越兩列 */
+    grid-template-areas: 
+      "txt1 bird" 
+      "txt2 bird" !important;
+    
+    padding: 0 0 0 100px !important;
+    margin-bottom: 250px;
+    column-gap: 20px !important;
+    align-items: center !important; /* 確保整體與鳥垂直置中 */
+    justify-content: flex-end !important;
+  }
+
+  /* 確保第一個文字塊在上面 */
+  .taiwan-t1 { 
+    grid-area: txt1; 
+    width: 100%;
+    max-width: 500px;
+    align-self: flex-end; /* 讓它靠下對齊，與下方文字產生緊湊感 */
+    margin-bottom: 20px;   /* 調整與下方文字的間距 */
+  }
+
+  /* 確保第二個文字塊在下面 */
+  .taiwan-t2 { 
+    grid-area: txt2; 
+    width: 100%;
+    max-width: 500px;
+    align-self: flex-start; /* 讓它靠上對齊 */
+  }
+
+  /* 鳥類容器保持跨越兩列 */
+  .taiwan-bird-box {
+    grid-area: bird;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    height: 100%;
+    margin-right: -100px !important;
+  }
+}
+
+/* UI 元件樣式 */
+.header-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.sub-title { font-size: 1.25rem; font-weight: bold; margin: 0; }
+.badge-pill { border: 1.5px solid #000; padding: 3px 15px; border-radius: 50px; font-weight: bold; margin-bottom: 15px; display: inline-block; }
+.tag-box { border: 1.5px solid #000; padding: 4px 12px; font-size: 0.85rem; margin-top: 15px; margin-bottom: 15px; display: inline-block; }
+.title-with-deco { display: flex; align-items: center; gap: 12px; }
